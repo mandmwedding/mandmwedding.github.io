@@ -1,2 +1,0 @@
-# Visit mandmwedding.github.io
-
