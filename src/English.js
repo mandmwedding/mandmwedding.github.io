@@ -9,12 +9,30 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import SaveTheBg from './images/savethedatebg.jpg';
 import Leaf from './images/hesonehp.png';
+import { useLocation } from "react-router-dom";
+import Home from './english/Home'
+import Location from './english/Location';
+import Schedule from './english/Schedule';
+import FAQ from './english/FAQ';
+import RSVP from './english/RSVP'
+import { Menu, useMediaQuery, MenuItem } from '@material-ui/core';
+import { AccessTimeOutlined, ImportantDevices } from '@material-ui/icons';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+
+import HomeIcon from '@material-ui/icons/Home';
+import TextsmsIcon from '@material-ui/icons/Textsms';
+import LanguageIcon from '@material-ui/icons/Language';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import MailIcon from '@material-ui/icons/Mail';
+
 
 function Copyright() {
   return (
@@ -75,7 +93,12 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
+    textAlign: 'left !important',
     flexGrow: 1,
+    color: 'white !important',
+    '&:hover': {
+      color: '#ffefee !important',
+    },
   },
 }));
 
@@ -87,8 +110,33 @@ const heroStyle = {
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export default function English() {
+
+const English = (props) => {
+  const { history } = props;
   const classes = useStyles();
+ 
+  const { search } = useLocation();
+  const match = search.match(/page=(.*)/);
+  const type = match?.[1];
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = event => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  }
+
+  const handleMenuClick = (pageURL) => {
+    history.push(pageURL);
+    setAnchorEl(null);
+  }
 
   return (
     <React.Fragment>
@@ -97,55 +145,91 @@ export default function English() {
         <div className={classes.hundo}>
           <AppBar position="relative">
             <Toolbar>
-              <Grid
-                justify="space-between" // Add it here :)
-                container
-                spacing={24}
-              >
-                <Grid item>
-                  <Typography variant="h6" className={classes.title}>
+                  <Typography variant="h6"
+                  className={classes.title}
+                  component={Link}
+                  to="/">
                     MÉLYSSA &amp; MICHAEL
                   </Typography>
-                </Grid>
-                <Grid item>
-                  <Link to="/en" color="inherit">
-                    <span className="tool-languages">English</span>
+                {!isMobile ? (<span>
+                  <Link to="/en?page=home" color="inherit">
+                    <span className="tool-languages">Home</span>
                   </Link>
-
-                  <Link to="/fr" className="tool-languages" color="inherit">
-                    <span className="tool-languages">French</span>
+                  <Link to="/en?page=faq" color="inherit">
+                    <span className="tool-languages">FAQ</span>
                   </Link>
-                </Grid>
+                  <Link to="/en?page=schedule" color="inherit">
+                    <span className="tool-languages">Schedule</span>
+                  </Link>
+                  {/* <Link to="/en?page=location" color="inherit">
+                    <span className="tool-languages">Location</span>
+                  </Link> */}
+                  <Link to="/en?page=rsvp" color="inherit">
+                    <span className="tool-languages">RSVP</span>
+                  </Link>
+                  <Link to="/fr" color="inherit">
+                    <span className="tool-languages">Français</span>
+                  </Link></span>
+                ) : (<span><IconButton
+                              edge="start"
+                              className={classes.menuButton}
+                              color="inherit"
+                              aria-label="menu"
+                              onClick={handleMenu}
+                            >
+                              <MenuIcon />
+                      </IconButton>
+                      <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                          vertical:  "top",
+                          horizontal: "right"
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                          vertical:  "top",
+                          horizontal: "right"
+                        }}
+                        open={open}
+                        onClose={handleClose}
+                        >
+                          <MenuItem onClick={() => handleMenuClick('/en?page=home')}><HomeIcon/>&nbsp; &nbsp;Home</MenuItem>
+                          <MenuItem onClick={() => handleMenuClick('/en?page=faq')}><TextsmsIcon/>&nbsp; &nbsp;FAQ</MenuItem>
+                          <MenuItem onClick={() => handleMenuClick('/en?page=schedule')}><AccessTimeIcon/>&nbsp; &nbsp;Schedule</MenuItem>
+                          {/* <MenuItem onClick={() => handleMenuClick('/en?page=location')}><LocationOnIcon/>&nbsp; &nbsp;Location</MenuItem> */}
+                          <MenuItem onClick={() => handleMenuClick('/en?page=rsvp')}><MailIcon/>&nbsp; &nbsp; RSVP</MenuItem>
+                          <MenuItem onClick={() => handleMenuClick('/fr')}><LanguageIcon/>&nbsp; &nbsp;Français</MenuItem>
+                        </Menu></span>)}
+                
                 {/* <Typography variant="h6" color="inherit" noWrap>
-            MÉLYSSA &amp; MICHAEL
-          </Typography>
-          <Link to="/en" color="inherit">
-            English
-          </Link>
-          <Link to="/fr " color="inherit">
-            French
-          </Link> */}
-              </Grid>
+                  MÉLYSSA &amp; MICHAEL
+                </Typography>
+                <Link to="/en" color="inherit">
+                  English
+                </Link>
+                <Link to="/fr " color="inherit">
+                  French
+                </Link> */}
+              {/* </Grid> */}
             </Toolbar>
           </AppBar>
-          {/* Hero unit */}
-          <div style={heroStyle} className={classes.heroContent}>
+          {/* Hero unit @@@make only appear on home page*/}
+          {type === 'faq' && <FAQ />}
+          {type === 'schedule' && <Schedule />}
+          {type === 'location' && <Location />}
+          {type === 'rsvp' && <RSVP />}
+          {(type === 'home' || type === undefined)&& <div style={heroStyle} className={classes.heroContent}>
             <Container maxWidth="sm">
-              <img
-                className="topLeaf"
-                style={{ height: '150px' }}
-                src={Leaf}
-                alt="Leaf"
-              />
+
               <Typography
                 component="h1"
                 variant="h2"
                 align="center"
-                color="textPrimary"
                 gutterBottom
                 className="savethedate"
               >
-                Save the date!
+                <span style={{ color: 'white' }}>Save the date!</span>
               </Typography>
               <Typography
                 variant="h5"
@@ -154,9 +238,9 @@ export default function English() {
                 paragraph
                 className="savedate"
               >
-                AUGUST 14, 2021
+                <span style={{ color: 'white' }}>AUGUST 13, 2022</span>
               </Typography>
-              <img style={{ height: '150px' }} src={Leaf} alt="Leaf" />
+              
 
               {/* <div className={classes.heroButtons}>
                 <Grid container spacing={2} justify="center">
@@ -173,50 +257,16 @@ export default function English() {
                 </Grid>
               </div> */}
             </Container>
-          </div>
+          </div>}
         </div>
       </div>
-      <div className="names">
-        <Typography component="h3" variant="h2">
-          Mélyssa Mckay-Nicole
-          <br />
-          <span className="smallAnd">and</span>
-          <br />
-          Michael Doseger
-        </Typography>
-      </div>
-      <div className="story">
-        <Grid container spacing={0}>
-          <Grid item xs={2}></Grid>
-          <Grid className="leftTitle" item xs={4}>
-            <Typography component="h4" variant="h4">
-              Our Story
-            </Typography>
-            <span className="storyDate">August 14, 2010</span>
-          </Grid>
-          <Grid item xs={4}>
-            <span style={{ fontSize: '1.75em' }}>Story goes here</span>
-          </Grid>
-          <Grid item xs={2}></Grid>
-          <Grid className="gridSpacer" item xs={12}></Grid>
-          <Grid item xs={2}></Grid>
-          <Grid className="leftTitle" item xs={4}>
-            <Typography component="h4" variant="h4">
-              The Proposal
-            </Typography>
-            <span className="storyDate">August 14, 2020</span>
-          </Grid>
-          <Grid item xs={4}>
-            <span style={{ fontSize: '1.75em' }}>Story goes here</span>
-          </Grid>
-          <Grid item xs={2}></Grid>
-        </Grid>
-      </div>
+
+      {(type === 'home' || type === undefined)&& <Home />}
       <div></div>
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          We can't wait to celebrate with you!
+          <span style={{ fontSize: '1.5rem'}}>We can't wait to celebrate with you!</span>
         </Typography>
         <Typography
           variant="subtitle1"
@@ -232,3 +282,5 @@ export default function English() {
     </React.Fragment>
   );
 }
+
+export default withRouter(English);

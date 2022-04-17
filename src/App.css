@@ -14,7 +14,7 @@
 }
 
 .MuiAppBar-colorPrimary {
-  background-color: rgb(33, 109, 86) !important;
+  background-color: #ff9084 !important;
 }
 
 .App-header {
@@ -26,6 +26,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
+}
+
+.fullNames {
+  padding-bottom: 30px;
 }
 
 .topLeaf {
@@ -43,6 +48,30 @@
   font-family: 'Cormorant Garamond', serif !important;
 }
 
+.qanda {
+  text-transform: uppercase;
+  font-family: 'Cormorant Garamond', serif !important;
+  padding: 30px 0;
+}
+
+.wrapperqanda{
+  margin: 50px auto;
+  padding: 0 20px;
+  max-width: 800px;
+  font-size: 16px;
+}
+
+.wrappersched{
+  margin: 50px auto;
+  padding: 0 20px;
+  max-width: 800px;
+}
+
+.question {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 600 !important;
+}
+
 .savedate {
   font-size: 1.8em !important;
   letter-spacing: 0.2em !important;
@@ -57,8 +86,9 @@
 
 .mainPageH1 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 5em;
+  font-size: 4em;
   line-height: 0.8em;
+  margin-top: -2em;
   text-transform: uppercase;
   text-align: center;
 }
@@ -92,7 +122,15 @@ a .mainPageH2 {
   text-decoration: none;
   color: white;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 0.9em;
+  font-size: 24px;
+  line-height: 1.5em;
+}
+
+.timer {
+  text-decoration: none;
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
   line-height: 1.5em;
 }
 
@@ -141,7 +179,7 @@ a:active {
   text-decoration: none;
 }
 
-.App-header::before {
+/* .App-header::before {
   content: '';
   position: absolute;
   top: 0;
@@ -150,10 +188,10 @@ a:active {
   left: 0;
   background-image: linear-gradient(to bottom right, #002f4b, #dc4225);
   opacity: 0.6;
-}
+} */
 
 .names {
-  padding: 10em 1em 10em 1em;
+  margin: 10em 1em;
 }
 .names h3 {
   font-family: 'Cormorant Garamond', serif;
@@ -170,13 +208,24 @@ a:active {
   font-family: 'Cormorant Garamond', serif !important;
 }
 .story {
-  padding: 10em 0 10em 0;
+  padding: 5em 0;
   font-family: 'Cormorant Garamond', serif !important;
 }
 
 .smallAnd {
   font-size: 0.3em;
   letter-spacing: 0.4em;
+}
+
+.galleryImages {
+  height: 30em;
+}
+
+.galleryImagesLg {
+  width: 30em;
+  max-width: 100%;
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 .App-link {
